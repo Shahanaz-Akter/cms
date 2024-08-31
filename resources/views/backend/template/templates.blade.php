@@ -1,9 +1,10 @@
 @extends('backend.layouts.master_page')
+
 @section('title')
 <title>Choose Template</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 @endsection
+
 @section('content')
 
 <div class="content">
@@ -13,7 +14,6 @@
       {{ session('success') }}
     </div>
 @endif
-
 
   <script>
     let alerts = document.querySelectorAll('.success-alert');
@@ -50,23 +50,32 @@
       <div id="products" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":10,"pagination":true}'>
        
         <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-body-emphasis border-top border-bottom border-translucent position-relative top-1">
-          
-         <div class="row">
 
-                <div class="col-12 col-md-4 col-lg-4 col-xl-4 mb-3 me-3 position-relative" style="border: 2px solid red;">
+          <form class="row" method="POST" action="{{ route('post.template') }}">
 
-                    <style>
-                        .custom-checkbox {
-                            transform: scale(1.5);
-                            -webkit-transform: scale(1.5);
-                            -moz-transform: scale(1.5);
-                            -ms-transform: scale(1.5);
-                            -o-transform: scale(1.5);
-                        }
-                    </style>
+           @csrf
+           
+           <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary mb-3">Assign Template</button>
+          </div>
+              {{-- hidden --}}
+              <input type="hidden" class="inputTag" name="temp_id" value="">
+
+
+               <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-5 me-3 position-relative" style="border: 2px solid red;">
+
+                  <style>
+                      .custom-checkbox {
+                          transform: scale(1.5);
+                          -webkit-transform: scale(1.5);
+                          -moz-transform: scale(1.5);
+                          -ms-transform: scale(1.5);
+                          -o-transform: scale(1.5);
+                      }
+                  </style>
 
                    <label class="icon-checkbox d-flex justify-content-end">
-                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="">
+                    {{-- <input type="radio" name="optionsRadios" id="optionsRadios2" value=""> --}}
                         <span class=" text-primary">
                             <i class="fas fa-check d-none" style="font-size: 35px;" id="checkIcon1"></i>
                         </span>
@@ -78,41 +87,41 @@
                   
                     <div class="position-absolute top-50 start-50">
                         <a href="{{ route('temp1')}}">
-                            <button class="btn btn-dark">Preview</button></a>
+                            <button class="btn btn-dark mb-2">Preview</button></a>
                         </a> 
                         {{-- <a href="{{ route('temp1.edit')}}">
                             <button class="btn btn-dark">Edit</button></a>
                         </a>  --}}
-                        <label class="btn btn-primary" id="selectLabel1">Select</label>
+                        <div class="btn btn-primary" id="selectLabel1" onclick="submitFormWithInput(this)">Select</div>
+                        <input type="hidden" name="temp1" value="{{$t1->id}}">
                     </div>
 
-                </div>
+              </div>
 
-                <div class="col-12 col-md-4 col-lg-4 col-xl-4 mb-3 me-3 position-relative" style="border: 2px solid blue;">
+                <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-5 me-3 position-relative" style="border: 2px solid blue;">
                     
-                    <label class="icon-checkbox text-end">
-                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="">
-
+                      <label class="icon-checkbox d-flex justify-content-end">
+                        {{-- <input type="radio" name="optionsRadios" id="optionsRadios3" value=""> --}}
                         <span class="text-primary">
                             <span class=" text-primary">
                                 <i class="fas fa-check d-none" style="font-size: 35px;" id="checkIcon2"></i>
 
                             </span>                       
                          </span>
-                   </label>
+                       </label>
 
                     <div class="p-4">
                         <img src="{{ asset('assets/img/temp2.PNG') }}" alt=""  style="width:100%;">
                     </div>
-            
 
-                <div class="position-absolute top-50 start-50">
+                    <div class="position-absolute top-50 start-50">
 
                     <a href="{{ route('temp2')}}">
-                        <button class="btn btn-dark">Preview</button></a>
+                        <button class="btn btn-dark mb-2">Preview</button></a>
                     </a> 
 
-                    <label class="btn btn-primary" id="selectLabel2">Select</label>
+                    <label class="btn btn-primary" id="selectLabel2" onclick="submitFormWithInput(this)">Select</label>
+                    <input type="hidden" name="temp2" value="{{$t2->id}}">
 
                     {{-- <a href="{{ route('temp2')}}">
                         <button class="btn btn-primary">Select</button></a>
@@ -123,11 +132,9 @@
                 </div>
                 </div>
 
-                <div class="col-12 col-md-4 col-lg-4 col-xl-4 mb-3 position-relative" style="border: 2px solid yellow;">
-                   
-                    <label class="icon-checkbox text-end">
-                        <input type="radio" class="checkbox-input d-none" />
-
+                <div class="col-12 col-md-6 col-lg-6 col-xl-4 mb-5 position-relative" style="border: 2px solid yellow;">
+                  <label class="icon-checkbox d-flex justify-content-end">
+                    {{-- <input type="radio" class="checkbox-input d-none" /> --}}
                         <span class=" text-primary">
 
                             <i class="fas fa-check d-none" style="font-size: 35px;" id="checkIcon3"></i>
@@ -135,27 +142,29 @@
                         </span>
                    </label>
 
-                   
                     <div class="p-4">
                         <img src="{{ asset('assets/img/temp3.PNG') }}" alt="" style="width:100%;">
                     </div>
              
-                <div class="position-absolute top-50 start-50">
-                    <a href="{{ route('temp3')}}">
-                        <button class="btn btn-dark">Preview</button></a>
-                    </a> 
+                  <div class="position-absolute top-50 start-50">
+                      <a href="{{ route('temp3')}}">
+                          <button class="btn btn-dark mb-2">Preview</button></a>
+                      </a> 
 
-                    <label class="btn btn-primary" id="selectLabel3">Select</label>
+                      <label class="btn btn-primary" id="selectLabel3" onclick="submitFormWithInput(this)">Select</label>
+                      <input type="hidden" name="temp3" value="{{$t3->id}}">
 
-                    {{-- <a href="{{ route('temp3.edit')}}">
-                        <button class="btn btn-dark">Edit</button></a>
-                    </a>  --}}
-                    {{-- <a href="{{ route('temp2')}}">
-                        <button class="btn btn-primary">Select</button></a>
-                    </a>  --}}
-                </div>
-                </div>
-         </div>
+                      {{-- <a href="{{ route('temp3.edit')}}">
+                          <button class="btn btn-dark">Edit</button></a>
+                      </a>  --}}
+                      {{-- <a href="{{ route('temp2')}}">
+                          <button class="btn btn-primary">Select</button></a>
+                      </a>  --}}
+                  </div>
+               </div>
+
+
+         </form>
         
         </div>
       </div>
@@ -314,33 +323,43 @@
   </div>
 
 <script>
- 
-    document.getElementById("selectLabel1").addEventListener("click", function() {
-    // console.log('yy');
 
+    let select1 = document.getElementById("selectLabel1");
+    let select2 = document.getElementById("selectLabel2");
+    let select3 = document.getElementById("selectLabel3");
+    // console.log(select2);
+    // console.log(select3);
+
+    select1.addEventListener("click", function() {
+    // console.log('yy');
 
     let icon = document.getElementById("checkIcon1");
     let label = this;
 
-    console.log(label);
+    // console.log(label);
 
     if (icon.classList.contains("d-none")) {
         icon.classList.remove("d-none");
         icon.classList.add("d-block");
         label.textContent = "Deselect";
+
+        select2.classList.add("d-none");
+        select3.classList.add( "d-none");
+        
+
     } else {
         icon.classList.remove("d-block");
         icon.classList.add("d-none");
         label.textContent = "Select";
+        select2.classList.remove("d-none");
+        select3.classList.remove("d-none");
+       
     }
 
 });
 
-
-document.getElementById("selectLabel2").addEventListener("click", function() {
+select2.addEventListener("click", function() {
     // console.log('yy');
-
-
     let icon = document.getElementById("checkIcon2");
     let label = this;
 
@@ -350,38 +369,69 @@ document.getElementById("selectLabel2").addEventListener("click", function() {
         icon.classList.remove("d-none");
         icon.classList.add("d-block");
         label.textContent = "Deselect";
+
+        select1.classList.add("d-none");
+        select3.classList.add( "d-none");
     } else {
         icon.classList.remove("d-block");
         icon.classList.add("d-none");
         label.textContent = "Select";
+
+        select1.classList.remove("d-none");
+        select3.classList.remove("d-none");
     }
 
 });
    
- 
-document.getElementById("selectLabel3").addEventListener("click", function() {
+select3.addEventListener("click", function() {
     // console.log('yy');
-
 
     let icon = document.getElementById("checkIcon3");
     let label = this;
-
     console.log(label);
 
     if (icon.classList.contains("d-none")) {
         icon.classList.remove("d-none");
         icon.classList.add("d-block");
         label.textContent = "Deselect";
+
+        select1.classList.add("d-none");
+        select2.classList.add( "d-none");
     } else {
         icon.classList.remove("d-block");
         icon.classList.add("d-none");
         label.textContent = "Select";
+
+        select1.classList.remove("d-none");
+        select2.classList.remove("d-none");
     }
 
 });
    
 
+ function submitFormWithInput(tag){
+    let form = document.getElementById('myForm');
 
+    let inputField = tag.nextElementSibling;
+    let value = inputField.value;
+    // console.log(value);
+
+    // let inputTag = document.querySelector('.inputTag');
+    // inputTag.value=value;
+    document.querySelector('input[name="temp_id"]').value = value;
+
+
+  //  let inputs = document.querySelectorAll('input');
+
+  //  inputs.forEach(input=>{
+  //   if (input != inputField) {
+  //           input.disabled = true;
+  //       }
+
+  //  });
+    // form.submit();
+
+  }
 </script>
  
 

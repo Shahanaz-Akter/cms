@@ -36,8 +36,7 @@
               <h3 class="text-body-highlight">Sign Up</h3>
               <p class="text-body-tertiary">Create Your Account Today</p>
             </div>
-            <button class="btn btn-phoenix-secondary w-100 mb-3"><span class="fab fa-google text-danger me-2 fs-9"></span><a href="{{ route('google.login') }}">Sign up with google</a> </button>
-            <button class="btn btn-phoenix-secondary w-100"><span class="fab fa-facebook text-primary me-2 fs-9"></span><a href="{{ route('google.login') }}">Sign up with facebook</a></button>
+         
             <div class="position-relative mt-4">
               <hr class="bg-body-secondary" />
               <div class="divider-content-center">or use email</div>
@@ -56,8 +55,8 @@
                  @endif
 
               <div class="mb-3 text-start">
-                <label class="form-label" for="name">user Name</label>
-                <input class="form-control" id="name" type="text" placeholder="User Name" name="user_name" value="{{ old('username') }}"/>
+                <label class="form-label" for="name">User Name</label>
+                <input class="form-control" id="name" type="text" placeholder="User Name" name="namee" />
               </div>
 
               <div class="mb-3 text-start">
@@ -75,11 +74,6 @@
                   <label class="form-label" for="password_confirmation ">Confirm Password</label>
                   <input class="form-control form-icon-input" id="password_confirmation " type="password" placeholder="Confirm Password"  name="password_confirmation"/>
                 </div>
-              </div>
-
-              <div class="form-check mb-3">
-                <input class="form-check-input" id="termsService" type="checkbox" />
-                <label class="form-label fs-9 text-transform-none" for="termsService">I accept the <a href="{{ route('admin.terms') }}">Terms </a>and <a href="{{ route('admin.privacy') }}">privacy policy</a></label>
               </div>
 
               <button type="submit" class="btn btn-primary w-100 mb-3">Sign up</button>
