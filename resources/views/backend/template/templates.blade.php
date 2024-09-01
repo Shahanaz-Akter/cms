@@ -10,7 +10,7 @@
 <div class="content">
 
 @if(session('success'))
-    <div  class="alert alert-danger success-alert">
+    <div  class="alert alert-primary success-alert">
       {{ session('success') }}
     </div>
 @endif
@@ -87,7 +87,7 @@
                   
                     <div class="position-absolute top-50 start-50">
                         <a href="{{ route('temp1')}}">
-                            <button class="btn btn-dark mb-2">Preview</button></a>
+                            <div class="btn btn-dark mb-2">Preview</div></a>
                         </a> 
                         {{-- <a href="{{ route('temp1.edit')}}">
                             <button class="btn btn-dark">Edit</button></a>
@@ -105,7 +105,6 @@
                         <span class="text-primary">
                             <span class=" text-primary">
                                 <i class="fas fa-check d-none" style="font-size: 35px;" id="checkIcon2"></i>
-
                             </span>                       
                          </span>
                        </label>
@@ -117,7 +116,7 @@
                     <div class="position-absolute top-50 start-50">
 
                     <a href="{{ route('temp2')}}">
-                        <button class="btn btn-dark mb-2">Preview</button></a>
+                        <div class="btn btn-dark mb-2">Preview</div></a>
                     </a> 
 
                     <label class="btn btn-primary" id="selectLabel2" onclick="submitFormWithInput(this)">Select</label>
@@ -148,7 +147,7 @@
              
                   <div class="position-absolute top-50 start-50">
                       <a href="{{ route('temp3')}}">
-                          <button class="btn btn-dark mb-2">Preview</button></a>
+                          <div class="btn btn-dark mb-2">Preview</div></a>
                       </a> 
 
                       <label class="btn btn-primary" id="selectLabel3" onclick="submitFormWithInput(this)">Select</label>
@@ -162,7 +161,6 @@
                       </a>  --}}
                   </div>
                </div>
-
 
          </form>
         

@@ -2,12 +2,13 @@
 
 use App\Models\User;
 use App\Models\Domain;
+use App\Models\DomainContent;
 use App\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Mail\Mailables\Content;
 use App\Http\Controllers\Auth\AuthController;
-
 
 // Route::get('/', function () {
 //     return view('backend.layouts.master_page');
@@ -60,7 +61,8 @@ Route::group(['prefix' => 'cms'], function () {
 
     Route::post('/post-template', function (Request $request) {
         // dd($request->all());
-        $user =  Auth::user();  //dd($user);
+        $user =  Auth::user();
+        // dd($user);
 
         if ($request->has('temp_id')) {
 
@@ -96,27 +98,111 @@ Route::group(['prefix' => 'template'], function () {
         return view('backend.template.temp1-edit');
     })->name('temp1.edit');
 
-    Route::post('/post-temp1', function () {
-        return 'post-temp1';
+    Route::post('/post-temp1', function (Request $request) {
+
+        // dd($request->all());
+        // $user = User::where('id', 3)->first();
+
+        $user = Auth::user();
+        $domain_user = Domain::where('user_id', $user->id)->first();
+
+        $record = DomainContent::where('domain_id',  $domain_user->id)->first();
+        // dd($record);
+
+        if ($record) {
+            $record->title = $request->title;
+            $record->h1_title = $request->h1_title;
+            $record->h1_des = $request->h1_description;
+            $record->h2_title = $request->h2_title;
+            $record->h2_des = $request->h2_description;
+            $record->save();
+            // dd( $domain_content);
+            return redirect()->back()->with('domain_content', $record);
+        } else {
+            $domain_content =  new DomainContent();
+            $domain_content->title = $request->title;
+            $domain_content->h1_title = $request->h1_title;
+            $domain_content->h1_des = $request->h1_description;
+            $domain_content->h2_title = $request->h2_title;
+            $domain_content->h2_des = $request->h2_description;
+            $domain_content->domain_id = $domain_user->id;
+            $domain_content->save();
+            // dd( $domain_content);
+            return redirect()->back()->with('domain_content', $domain_content);
+        }
     })->name('post.temp1');
 
     Route::get('/temp2-edit', function () {
         return view('backend.template.temp2-edit');
     })->name('temp2.edit');
 
-    Route::post('/post-temp2', function () {
-        return 'post-temp2';
+
+    Route::post('/post-temp2', function (Request $request) {
+
+        // dd($request->all());
+        $user = Auth::user();
+        $domain_user =  $user->domain;
+
+        $record = DomainContent::where('domain_id',  $domain_user->id)->first();
+
+        if ($record) {
+            $record->title = $request->title;
+            $record->h1_title = $request->h1_title;
+            $record->h1_des = $request->h1_description;
+            $record->h2_title = $request->h2_title;
+            $record->h2_des = $request->h2_description;
+            $record->save();
+            // dd( $domain_content);
+            return redirect()->back()->with('domain_content', $record);
+        } else {
+            $domain_content =  new DomainContent();
+            $domain_content->title = $request->title;
+            $domain_content->h1_title = $request->h1_title;
+            $domain_content->h1_des = $request->h1_description;
+            $domain_content->h2_title = $request->h2_title;
+            $domain_content->h2_des = $request->h2_description;
+            $domain_content->domain_id = $domain_user->id;
+            $domain_content->save();
+            // dd( $domain_content);
+            return redirect()->back()->with('domain_content', $domain_content);
+        }
     })->name('post.temp2');
 
     Route::get('/temp3-edit', function () {
         return view('backend.template.temp3-edit');
     })->name('temp3.edit');
 
-    Route::post('/post-temp3', function () {
-        return 'post-temp3';
+    Route::post('/post-temp3', function (Request $request) {
+        // dd($request->all());
+
+        $user = Auth::user();
+        $domain_user =  $user->domain;
+        $record = DomainContent::where('domain_id',  $domain_user->id)->first();
+        if ($record) {
+            $record->title = $request->title;
+            $record->h1_title = $request->h1_title;
+            $record->h1_des = $request->h1_description;
+            $record->h2_title = $request->h2_title;
+            $record->h2_des = $request->h2_description;
+            $record->save();
+            // dd( $domain_content);
+            return redirect()->back()->with('domain_content', $record);
+        } else {
+            $domain_content =  new DomainContent();
+            $domain_content->title = $request->title;
+            $domain_content->h1_title = $request->h1_title;
+            $domain_content->h1_des = $request->h1_description;
+            $domain_content->h2_title = $request->h2_title;
+            $domain_content->h2_des = $request->h2_description;
+            $domain_content->domain_id = $domain_user->id;
+            $domain_content->save();
+        }
+
+
+        // dd( $domain_content);
+
+        return redirect()->back()->with('domain_content', $domain_content);
     })->name('post.temp3');
-
-
 
     Route::get('/custom-content', function () {
 
@@ -130,6 +216,45 @@ Route::group(['prefix' => 'template'], function () {
 });
 
 
-// Route::get('/landing-page', function () {
-//     return view('backend.layouts.langing-page');
-// });
+$domains = Domain::all();
+// dd( $domains[2]);
+
+foreach ($domains as $domain) {
+
+    Route::get($domain->name, function () use ($domain) {
+
+        if ($domain->template_id == 1) {
+
+            $user = Auth::user();
+            $domain_user = $user->domain;
+            $content = DomainContent::where('domain_id',  $domain_user->id)->first();
+            // dd($content);
+
+            return view('backend.template.temp1', compact('content'));
+
+        } else if ($domain->template_id == 2) {
+            $user = Auth::user();
+            $domain_user = $user->domain;
+            $content = DomainContent::where('domain_id',  $domain_user->id)->first();
+            // dd($content);
+            return view('backend.template.temp2', compact('content'));
+        } else {
+            $user = Auth::user();
+            $domain_user = $user->domain;
+            $content = DomainContent::where('domain_id',  $domain_user->id)->first();
+            // dd($content);
+
+            return view('backend.template.temp3', compact('content'));
+        }
+    });
+
+    // Route::get('shahanaz.com', function () {
+
+    //     return view('backend.template.temp2');
+    // });
+
+    // Route::get('mimi.com', function () {
+
+    //     return view('backend.template.temp3');
+    // });
+}

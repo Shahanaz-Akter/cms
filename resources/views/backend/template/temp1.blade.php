@@ -9,7 +9,11 @@
 </head>
 
 <body>
+
     <section class="bg-light p-5">
+
+        <div>Template-01</div>
+
 
     <div class="">
         <a href="{{ route('template') }}">
@@ -17,6 +21,23 @@
     </div>
  
 
+@if($content)
+<div>{{ $content->title }}</div>
+<div>
+    <div>
+        <h1>{{ $content->h1_title }}</h1>
+        <div>{{ $content->h1_des }}</div>
+    </div>
+
+    <br>
+    <div>
+        <h2>{{ $content->h2_title }}</h2>
+
+        <div>{{ $content->h2_des  }}</div>
+    </div>
+
+</div>
+@else
     <div>I am from Template 1.</div>
     <div>
         <div>
@@ -34,6 +55,7 @@
         </div>
 
     </div>
+    @endif
 
 </section>
 </body>

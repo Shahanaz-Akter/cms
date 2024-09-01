@@ -9,32 +9,57 @@
 </head>
 <body>
     <section class="bg-light p-5">
+        <div>Template-02</div>
 
         <div class="">
             <a href="{{ route('template') }}">
            <button class="btn btn-dark">← Back</button></a>
         </div>
 
-
-    <div>I am from Template 2.</div>
-    <div>
+        @if($content)
+        <div>
         
-        <div>
-            <h4>H4 tag</h4>
-
-            <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At dolor magnam tenetur voluptate
-                 reprehenderit doloremque, libero ex ratione officia error!</div>
+            <div>
+                <h2>{{ $content->h2_title }}</h2>
+        
+                <div>{{ $content->h2_des}}</div>
+            </div>
+            
+            <div>{{ $content->title }}</div>
+        
+            <br>
+        
+            <div>
+                <h1>{{ $content->h1_title }}</h1>
+                <div>{{ $content->h1_des}}</div>
+            </div>
+        
         </div>
+@else
+<div>
+        
+    <div>
+        <h2>H2 tag</h2>
 
-        <br>
-
-        <div>
-            <h2>H2 tag</h2>
-            <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At dolor magnam tenetur voluptate
-                 reprehenderit doloremque, libero ex ratione officia error!</div>
-        </div>
-
+        <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At dolor magnam tenetur voluptate
+             reprehenderit doloremque, libero ex ratione officia error!</div>
     </div>
+    
+    <div>I am from Template 2.</div>
+
+    <br>
+
+    <div>
+        <h1>H1 tag</h1>
+        <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. At dolor magnam tenetur voluptate
+             reprehenderit doloremque, libero ex ratione officia error!</div>
+    </div>
+
+</div>
+        @endif
+   
+
+
 </section>
 
 </body>

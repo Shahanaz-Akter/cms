@@ -15,26 +15,26 @@ class TemplateSeeder extends Seeder
     public function run(): void
     {
        
-        $temp1 = Template::where('title', '=', 'temp1.view')->first();
+        $temp1 = Template::where('title', '=', 'template1')->first();
         if ($temp1 == null) {
             $temp1 = new Template();
-            $temp1->title = "temp1.view";
+            $temp1->title = "template1";
             $temp1->save();
         }
 
-        $temp2 = Template::where('title', '=', 'temp2.view')->first();
+        $temp2 = Template::where('title', '=', 'template2')->first();
         if ($temp2 == null) {
 
             $temp2 = new Template();
-            $temp2->title = "temp2.view";
+            $temp2->title = "template2";
             $temp2->save();
         }
 
-        $temp3 = Template::where('title', '=', 'temp3.view')->first();
+        $temp3 = Template::where('title', '=', 'template3')->first();
         if ($temp3 == null) {
 
             $temp3 = new Template();
-            $temp3->title = "temp3.view";
+            $temp3->title = "template3";
             $temp3->save();
         }
 

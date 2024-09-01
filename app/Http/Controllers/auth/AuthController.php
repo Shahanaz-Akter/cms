@@ -40,7 +40,7 @@ class AuthController extends Controller
         Auth::login($user);
 
         $user = Domain::create([
-            'name' => '/' . $request->namee . '.com',
+            'name' => $request->namee . '.com',
             'user_id' =>   $user->id,
             'template_id' => 1,
         ]);
@@ -69,6 +69,7 @@ class AuthController extends Controller
 
         // $user_info = User::where('email', $request->email)->first();
         $user = Auth::user();
+        Auth::login($user);
 
         if ($auth_user) {
 

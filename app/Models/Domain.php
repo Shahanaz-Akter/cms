@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Template;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Domain extends Model
 {
@@ -15,13 +17,18 @@ class Domain extends Model
         'template_id'
     ];
 
-
     public function user()
     {
-        return $this->belongsTo('User::class', 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
     public function template()
     {
-        return $this->belongsTo('Template::class', 'template_id', 'id');
+        return $this->belongsTo(Template::class, 'template_id', 'id');
+    }
+
+    public function domain_content()
+    {
+        return $this->hasOne(DomainContent::class);
     }
 }
